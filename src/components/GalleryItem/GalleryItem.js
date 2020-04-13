@@ -19,8 +19,8 @@ class GalleryItem extends Component {
         <img
           src={this.props.item.path}
           className="img-container"
-          width="250px"
-          height="300px"
+          width="200px"
+          height="200px"
         />
         <h3>Likes: {this.props.item.likes}</h3>
       </div>

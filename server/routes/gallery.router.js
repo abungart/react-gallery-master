@@ -10,16 +10,13 @@ router.put("/like/:id", (req, res) => {
   console.log(req.params.id);
 
   const galleryId = req.params.id;
-  const galleryData = req.body;
-  const queryText = `UPDATE "gallery"
-  SET "likes"=$1
-  WHERE "id" = $2;`;
+
+  const queryText = `UPDATE gallery
+  SET "likes" = "likes" + 1
+  WHERE "id" = $1;`;
 
   pool
-    .query(queryText, [galleryData.likes + 1, galleryId])
-    .then((responseDb) => {
-      res.sendStatus(200);
-    })
+    .query(queryText, [galleryId])
     .then((responseDb) => {
       res.sendStatus(200);
     })
@@ -31,7 +28,7 @@ router.put("/like/:id", (req, res) => {
 
 // GET Route
 router.get("/", (req, res) => {
-  const sqlText = `SELECT * FROM gallery;`;
+  const sqlText = `SELECT * FROM gallery ORDER BY "id" ASC;`;
   pool
     .query(sqlText)
     .then((result) => {
